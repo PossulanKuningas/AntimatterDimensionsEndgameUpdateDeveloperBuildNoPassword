@@ -13,6 +13,7 @@ export const accelerators = {
     effect2: percentage => Decimal.pow10(percentage),
     effect3: percentage => Decimal.pow10(percentage / 5),
     currency: () => Currency.antimatter,
+    unlockReq: () => Decimal.pow10(1e200),
     milestones: [
       {
         resource: "potency",
@@ -47,6 +48,7 @@ export const accelerators = {
     effect2: percentage => 1 + percentage / 100,
     effect3: percentage => 1 / (0.1 + percentage / 250),
     currency: () => Currency.nullMatter,
+    unlockReq: () => Decimal.pow10(5),
     milestones: [
       {
         resource: "emptiness",
@@ -82,6 +84,7 @@ export const accelerators = {
     effect2: percentage => 1 + percentage / 100,
     effect3: percentage => 1 + percentage / 2000,
     currency: () => Currency.galaxyGeneratorGalaxies,
+    unlockReq: () => Decimal.pow10(3000),
     milestones: [
       {
         resource: "cosmic",
