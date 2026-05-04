@@ -152,7 +152,7 @@ class AcceleratorState extends GameMechanicState {
       const speed = player.endgame.largeHadronCollider.powerCores;
       const maxFill = 0.00001 * speed * diff / 1000;
       const pendFill = this.amountFilled + maxFill;
-      const maxValue = this.percentage(this.fillCurrency.value);
+      const maxValue = this.config.percentage(this.fillCurrency.value);
       this.amountFilled = Math.min(pendFill, maxValue);
     this.checkMilestoneStates();
   }
