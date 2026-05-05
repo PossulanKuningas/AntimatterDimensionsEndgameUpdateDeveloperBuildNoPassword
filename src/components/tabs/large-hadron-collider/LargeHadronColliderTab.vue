@@ -13,7 +13,7 @@ export default {
   },
   methods: {
     update() {
-      this.hasStrike = Accelerators.all.some(a => a.isUnlocked);
+      this.hasAccelerator = Accelerators.all.some(a => a.isUnlocked);
     },
   }
 };
