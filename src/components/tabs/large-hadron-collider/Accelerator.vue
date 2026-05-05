@@ -47,7 +47,7 @@ export default {
       return this.accelerator.name;
     },
     drainResource() {
-      return this.rift.drainResource;
+      return this.accelerator.drainResource;
     }
   },
 };
