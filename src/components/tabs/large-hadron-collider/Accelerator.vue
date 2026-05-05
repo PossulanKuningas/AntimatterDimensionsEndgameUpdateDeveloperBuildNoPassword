@@ -28,7 +28,7 @@ export default {
       this.isUnlocked = this.accelerator.isUnlocked;
       if (!this.isUnlocked) return;
       const accelerator = this.accelerator;
-      this.effects = this.rift.totalEffects;
+      this.effects = this.accelerator.totalEffects;
       this.isActive = accelerator.isActive;
       this.isMaxed = accelerator.isMaxed;
       this.totalFill = accelerator.totalFill;
@@ -61,7 +61,7 @@ export default {
       <div class="c-accelerator-row">
         <div class="c-accelerator-column c-accelerator-rift-status">
           <h2 class="c-accelerator-name-header">
-            {{ riftName() }}
+            {{ acceleratorName() }}
           </h2>
           <div class="c-accelerator-info-container">
             <div
