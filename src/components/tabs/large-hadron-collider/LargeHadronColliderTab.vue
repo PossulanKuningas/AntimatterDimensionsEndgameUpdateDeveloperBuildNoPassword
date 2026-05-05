@@ -2,7 +2,7 @@
 import AcceleratorsPanel from "./AcceleratorsPanel";
 
 export default {
-  name: "PelleTab",
+  name: "LargeHadronColliderTab",
   components: {
     AcceleratorsPanel
   },
