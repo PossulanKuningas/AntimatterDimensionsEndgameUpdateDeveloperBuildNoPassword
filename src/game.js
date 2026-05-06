@@ -981,6 +981,7 @@ export function gameLoop(passedDiff, options = {}) {
   Pelle.gameLoop(realDiff);
   GalaxyGenerator.loop(realDiff);
   GameEnd.gameLoop(realDiff);
+  Accelerators.gameLoop(realDiff);
   tryAdvanceSector();
   quoteCheck();
 
