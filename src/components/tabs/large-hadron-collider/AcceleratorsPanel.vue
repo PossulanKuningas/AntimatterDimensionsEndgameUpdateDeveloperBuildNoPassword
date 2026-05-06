@@ -19,7 +19,7 @@ export default {
   },
   methods: {
     update() {
-      this.decayRate = player.endgame.largeHadronCollider.powerCores * 0.00001;
+      this.decayRate = LHC.acceleratorSpeed;
       this.time = Date.now();
     }
   }
