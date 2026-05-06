@@ -147,13 +147,12 @@ class AcceleratorState extends GameMechanicState {
     }
     if (!this.isActive || this.isMaxed) return;
 
-      // Don't drain resources if you only have 1 of it.
-      if (this.fillCurrency.value.lte(1)) return;
-      const speed = player.endgame.largeHadronCollider.powerCores;
-      const maxFill = 0.00001 * speed * diff / 1000;
-      const pendFill = this.amountFilled + maxFill;
-      const maxValue = this.config.percentage(this.fillCurrency.value);
-      this.amountFilled = Math.min(pendFill, maxValue);
+    // Don't drain resources if you only have 1 of it.
+    if (this.fillCurrency.value.lte(1)) return;
+    const maxFill = LHC.acceleratorSpeed * diff / 1000;
+    const pendFill = this.amountFilled + maxFill;
+    const maxValue = this.config.percentage(this.fillCurrency.value);
+    this.amountFilled = Math.min(pendFill, maxValue);
     this.checkMilestoneStates();
   }
 }
@@ -164,3 +163,23 @@ export const Accelerators = mapGameDataToObject(
 );
 
 Accelerators.totalMilestones = () => Accelerators.all.flatMap(x => x.milestones).countWhere(x => x.canBeApplied);
+
+export const LHC = {
+  get hadronSpeed() {
+    let firstThreeAcceleratorPercentagesSum = 0;
+    let sumArray = [];
+    for (let sum = 0; sum < Accelerators.all.length; sum++) {
+      sumArray.push(Accelerators.all[sum].percentage * 100);
+    }
+    firstThreeAcceleratorPercentagesSum = sumArray.reduce(Number.sumReducer, 0);
+    return 299792458 / (27000000 / Math.pow(firstThreeAcceleratorPercentagesSum, 3));
+  },
+
+  get acceleratorSpeed() {
+    return 0.00001 * player.endgame.largeHadronCollider.powerCores;
+  },
+
+  get nextAccelerator() {
+    return Accelerators.all.first(a => !a.isUnlocked);
+  }
+};
