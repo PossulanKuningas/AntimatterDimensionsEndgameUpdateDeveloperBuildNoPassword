@@ -441,10 +441,6 @@ export function gainedCelestialInfinities() {
   return DC.D1;
 }
 
-export function gainedCelestialEternities() {
-  return DC.D1;
-}
-
 export function gainedCelestialInfinityPoints() {
   const div = Effects.min(308);
   let cip = player.endgame.celDimExpansion.isBroken
