@@ -1022,8 +1022,8 @@ export function celestialEternity(force, auto, specialConditions = {}) {
 
   initializeResourcesAfterCelestialEternity();
 
-  if (false) {
-    player.break = false;
+  if (true) {
+    player.endgame.celDimExpansion.isBroken = false;
   }
 
   resetCelestialInfinityRuns();
