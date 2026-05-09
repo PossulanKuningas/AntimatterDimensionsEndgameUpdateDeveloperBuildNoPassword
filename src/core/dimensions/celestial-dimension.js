@@ -709,7 +709,7 @@ export function manualRequestCelestialGalaxyReset(bulk) {
   if (!CelestialGalaxy.canBeBought || !CelestialGalaxy.requirement.isSatisfied) return;
   if (GameEnd.creditsEverClosed) return;
   if (player.options.confirmations.celestialGalaxy) {
-    Modal.celestialGalaxy.show({ bulk: false && bulk });
+    Modal.celestialGalaxy.show({ bulk: CelestialEternityUpgrade.bulkCelGalaxies.isBought && bulk });
     return;
   }
   requestCelestialGalaxyReset(bulk);
@@ -719,7 +719,7 @@ export function manualRequestCelestialGalaxyReset(bulk) {
 // to restrict galaxy count for RUPG7's requirement here and nowhere else
 export function requestCelestialGalaxyReset(bulk, limit = DC.BEMAX) {
   const restrictedLimit = limit;
-  if (false && bulk) return maxBuyCelestialGalaxies(restrictedLimit);
+  if (CelestialEternityUpgrade.bulkCelGalaxies.isBought && bulk) return maxBuyCelestialGalaxies(restrictedLimit);
   if (player.endgame.celDimExpansion.galaxies.gte(restrictedLimit) || !CelestialGalaxy.canBeBought ||
     !CelestialGalaxy.requirement.isSatisfied) return false;
   celestialGalaxyReset();
