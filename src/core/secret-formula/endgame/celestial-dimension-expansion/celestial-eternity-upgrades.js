@@ -1,10 +1,12 @@
 function rebuyable(config) {
   const effectFunction = config.effect || (x => x);
-  const { id, maxUpgrades, description, isDisabled, noLabel, onPurchased } = config;
+  const { id, maxUpgrades, description, isDisabled, noLabel, onPurchased, isDecimal } = config;
   return {
     rebuyable: true,
     id,
-    cost: () => config.initialCost * Math.pow(config.costIncrease, player.endgame.celDimExpansion.celestialEternityRebuyables[config.id]),
+    cost: () => config.isDecimal
+      ? Decimal.pow(config.costIncrease, player.endgame.celDimExpansion.celestialEternityRebuyables[config.id]).times(config.initialCost)
+      : config.initialCost * Math.pow(config.costIncrease, player.endgame.celDimExpansion.celestialEternityRebuyables[config.id]),
     maxUpgrades,
     description,
     effect: () => effectFunction(player.endgame.celDimExpansion.celestialEternityRebuyables[config.id]),
@@ -12,7 +14,8 @@ function rebuyable(config) {
     formatEffect: config.formatEffect,
     formatCost: value => format(value, 2, 0),
     noLabel,
-    onPurchased
+    onPurchased,
+    isDecimal
   };
 }
 
@@ -25,7 +28,8 @@ export const celestialEternityUpgrades = {
     effect: value => Math.pow(0.99, value),
     description: () => `Reduce the Celestial Infinity Point conversion formula divisor by ${formatPercents(0.01)}`,
     formatEffect: value => `${formatX(value, 2, 3)}`,
-    noLabel: false
+    noLabel: false,
+    isDecimal: false
   }),
   largeCDMult: rebuyable({
     id: 2,
@@ -35,7 +39,8 @@ export const celestialEternityUpgrades = {
     effect: value => Decimal.pow(1000, value),
     description: () => `Multiply Celestial Dimensions by ${formatX(1000)} per purchase`,
     formatEffect: value => `${formatX(value, 2, 2)}`,
-    noLabel: false
+    noLabel: false,
+    isDecimal: false
   }),
   conversionFormulaImprovement: rebuyable({
     id: 3,
@@ -45,7 +50,8 @@ export const celestialEternityUpgrades = {
     effect: value => Math.pow(1.01, value),
     description: () => `Multiply the Celestial Dimension Conversion Exponent by ${formatX(1.01, 2, 2)}`,
     formatEffect: value => `${formatX(value, 2, 3)}`,
-    noLabel: false
+    noLabel: false,
+    isDecimal: true
   }),
   celCrunchAuto: {
     id: "celCrunchAuto",
