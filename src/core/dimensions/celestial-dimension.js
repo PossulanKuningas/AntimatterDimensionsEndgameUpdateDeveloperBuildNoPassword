@@ -486,12 +486,12 @@ export function softCelestialReset(tempBulk, forcedCDReset = false, forcedCMRese
   const bulk = Decimal.min(tempBulk, CelestialDimBoost.maxBoosts.sub(player.endgame.celDimExpansion.dimBoosts));
   EventHub.dispatch(GAME_EVENT.CELESTIAL_DIMBOOST_BEFORE, bulk);
   player.endgame.celDimExpansion.dimBoosts = (Decimal.max(DC.D0, player.endgame.celDimExpansion.dimBoosts.add(bulk)));
-  const canKeepDimensions = false;
+  const canKeepDimensions = CelestialEternityUpgrade.freeDimBoost.isBought;
   if (forcedCDReset || !canKeepDimensions) {
     CelestialDimensions.resetAmount();
     resetCelestialTickspeed();
   }
-  const canKeepCelMatter = false;
+  const canKeepCelMatter = CelestialEternityUpgrade.freeDimBoost.isBought;
   if (!forcedCMReset && canKeepCelMatter) {
     Currency.unnerfedcelestialMatter.bumpTo(Currency.unnerfedCelestialMatter.startingValue);
     Currency.celestialMatter.bumpTo(Currency.unnerfedCelestialMatter.startingValue);
@@ -698,8 +698,8 @@ export class CelestialGalaxy {
 function celestialGalaxyReset() {
   EventHub.dispatch(GAME_EVENT.CELESTIAL_GALAXY_RESET_BEFORE);
   player.endgame.celDimExpansion.galaxies = player.endgame.celDimExpansion.galaxies.add(1);
-  if (true) {
-    player.endgame.celDimExpansion.dimBoosts = new Decimal(0);
+  if (!CelestialEternityUpgrade.freeDimBoost.isBought) {
+    player.endgame.celDimExpansion.dimBoosts = new Decimal(CelestialInfinityUpgrade.buffedStart.effectOrDefault(0));
   }
   softCelestialReset(0);
   EventHub.dispatch(GAME_EVENT.CELESTIAL_GALAXY_RESET_AFTER);
