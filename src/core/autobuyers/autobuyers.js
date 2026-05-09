@@ -43,6 +43,7 @@ export const Autobuyer = {
   celestialCrunch: new CelestialCrunchAutobuyerState(),
   celestialDimboost: new CelestialDimBoostAutobuyerState(),
   celestialDimension: CelestialDimensionAutobuyerState.createAccessor(),
+  celestialEternity: new CelestialEternityAutobuyerState(),
   celestialGalaxy: new CelestialGalaxyAutobuyerState(),
   celestialTickspeed: new CelestialTickspeedAutobuyerState(),
   darkMatterDimsAscension: new DarkMatterDimensionAscensionAutobuyerState(),
