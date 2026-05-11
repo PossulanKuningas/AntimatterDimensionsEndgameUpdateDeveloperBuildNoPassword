@@ -28,7 +28,7 @@ export default {
         ],
         [
           CelestialEternityUpgrade.startingBoosts,
-          CelestialEternityUpgrade.startBreak,
+          CelestialEternityUpgrade.startBreakInf,
           CelestialEternityUpgrade.celEternityAuto
         ],
         [
