@@ -2623,7 +2623,7 @@ br {
 
 .o-condense-button:hover {
   color: black;
-  background-color: var(--color-pelle--base);
+  background: linear-gradient(red, yellow, cyan);
 }
 
 .o-condense-button span {
