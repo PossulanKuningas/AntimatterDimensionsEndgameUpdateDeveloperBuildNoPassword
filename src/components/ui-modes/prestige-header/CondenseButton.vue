@@ -72,7 +72,7 @@ export default {
     update() {
       this.isVisible = PlayerProgress.divineStarsUnlocked() || Currency.divineMatter.gte(DC.NUMMAX);
       if (!this.isVisible) return;
-      this.canCondense = Player.canCondense;
+      this.canCondense = Currency.divineMatter.gte(this.condenseGoal);
       this.condenseGoal.copyFrom(DivineDimensions.HARDCAP);
       this.headerTextColored = player.options.headerTextColored;
       this.creditsClosed = GameEnd.creditsEverClosed;
