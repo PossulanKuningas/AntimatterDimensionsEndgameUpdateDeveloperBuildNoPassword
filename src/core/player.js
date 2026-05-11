@@ -1026,6 +1026,7 @@ window.player = {
         divineMatter: DC.E1,
         divineEnergy: DC.D0,
         isProducingEnergy: false,
+        condenses: DC.D0,
         divineStars: DC.D0
       },
       divinityUpgrades: new Set(),
