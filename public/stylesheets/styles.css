@@ -2612,6 +2612,39 @@ br {
 
 /* #endregion Celestial Eternity */
 
+/* #region Condense */
+
+.o-condense-button {
+  font-weight: bold;
+  color: var(--color-pelle--base);
+  background-color: var(--color-prestige--accent);
+  border-color: var(--color-pelle--base);
+}
+
+.o-condense-button:hover {
+  color: black;
+  background-color: var(--color-pelle--base);
+}
+
+.o-condense-button span {
+  transition-duration: 0.2s;
+}
+
+.o-condense-button:hover span {
+  color: black;
+}
+
+.t-metro .o-condense-button {
+  box-shadow: 0.1rem 0.1rem 0.1rem 0 #9e9e9e;
+}
+
+.o-condense-button--unavailable {
+  opacity: 0.5;
+  cursor: default;
+}
+
+/* #endregion Condense */
+
 /* #endregion o-prestige-btn */
 
 /* #region l-spoon-btn-group */
