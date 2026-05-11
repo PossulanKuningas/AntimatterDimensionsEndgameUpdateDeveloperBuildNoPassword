@@ -4,9 +4,7 @@ function rebuyable(config) {
   return {
     rebuyable: true,
     id,
-    cost: () => config.isDecimal
-      ? Decimal.pow(config.costIncrease, player.endgame.celDimExpansion.celestialEternityRebuyables[config.id]).times(config.initialCost)
-      : config.initialCost * Math.pow(config.costIncrease, player.endgame.celDimExpansion.celestialEternityRebuyables[config.id]),
+    cost: () => Decimal.pow(config.costIncrease, player.endgame.celDimExpansion.celestialEternityRebuyables[config.id]).times(config.initialCost),
     maxUpgrades,
     description,
     effect: () => effectFunction(player.endgame.celDimExpansion.celestialEternityRebuyables[config.id]),
@@ -28,8 +26,7 @@ export const celestialEternityUpgrades = {
     effect: value => Math.pow(0.99, value),
     description: () => `Reduce the Celestial Infinity Point conversion formula divisor by ${formatPercents(0.01)}`,
     formatEffect: value => `${formatX(value, 2, 3)}`,
-    noLabel: false,
-    isDecimal: false
+    noLabel: false
   }),
   largeCDMult: rebuyable({
     id: 1,
@@ -39,8 +36,7 @@ export const celestialEternityUpgrades = {
     effect: value => Decimal.pow(1000, value),
     description: () => `Multiply Celestial Dimensions by ${formatX(1000)} per purchase`,
     formatEffect: value => `${formatX(value, 2, 2)}`,
-    noLabel: false,
-    isDecimal: false
+    noLabel: false
   }),
   conversionFormulaImprovement: rebuyable({
     id: 2,
@@ -50,8 +46,7 @@ export const celestialEternityUpgrades = {
     effect: value => Math.pow(1.01, value),
     description: () => `Multiply the Celestial Dimension Conversion Exponent by ${formatX(1.01, 2, 2)}`,
     formatEffect: value => `${formatX(value, 2, 3)}`,
-    noLabel: false,
-    isDecimal: true
+    noLabel: false
   }),
   startBreak: {
     id: "startBreak",
