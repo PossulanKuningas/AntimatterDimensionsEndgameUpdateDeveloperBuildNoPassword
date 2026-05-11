@@ -350,7 +350,7 @@ export default {
           You have made a total of {{ format(celestialInfinity.totalCelestialInfinityCelMatter, 2, 1) }} Celestial Matter
           this Celestial Infinity.
         </div>
-        <div v-if="hasSeenDivineDimensions" class="c-stats-tab-divinity">
+        <div v-if="hasSeenDivineDims" class="c-stats-tab-divinity">
           You have made a total of {{ format(totalDivineMatter, 2, 1) }} Divine Matter.
         </div>
         <div>You have played for {{ realTimePlayed }}. (real time)</div>
