@@ -33,13 +33,31 @@ export default {
           DivinityUpgrade.divineL1U10,
         ]
       ];
+    },
+    grid2() {
+      return [
+        [
+          DivinityUpgrade.divineL2U1,
+          DivinityUpgrade.divineL2U2,
+          DivinityUpgrade.divineL2U3,
+          DivinityUpgrade.divineL2U4,
+          DivinityUpgrade.divineL2U5,
+        ],
+        [
+          DivinityUpgrade.divineL2U6,
+          DivinityUpgrade.divineL2U7,
+          DivinityUpgrade.divineL2U8,
+          DivinityUpgrade.divineL2U9,
+          DivinityUpgrade.divineL2U10,
+        ]
+      ];
     }
   },
   methods: {
     update() {
       this.has1 = DivinityMilestone.divineDimensions.isReached;
-      //this.has2 = PlayerProgress.divineStars.isReached;
-      //this.has3 = (DivinityUpgrades.all.filter(u => u.layer === 2 && u.isBought).length === DivinityUpgrades.all.filter(u => u.layer === 2).length);
+      this.has2 = PlayerProgress.divineStars.isReached;
+      this.has3 = (DivinityUpgrades.all.filter(u => u.layer === 2 && u.isBought).length === DivinityUpgrades.all.filter(u => u.layer === 2).length);
       //this.has4 = PlayerProgress.nebulae.isReached;
       //this.has5 = (DivinityUpgrades.all.filter(u => u.layer === 4 && u.isBought).length === DivinityUpgrades.all.filter(u => u.layer === 4).length);
     }
@@ -55,6 +73,22 @@ export default {
       </div>
       <div
         v-for="(column, columnId) in grid1"
+        :key="columnId"
+        class="l-divinity-upgrade-grid__row"
+      >
+        <DivinityUpgradeButton
+          v-for="upgrade in column"
+          :key="upgrade.id"
+          :upgrade="upgrade"
+        />
+      </div>
+    </div>
+    <div v-if="has2">
+      <div class="c-divinity-header">
+        Layer Two Upgrades
+      </div>
+      <div
+        v-for="(column, columnId) in grid2"
         :key="columnId"
         class="l-divinity-upgrade-grid__row"
       >
