@@ -15,6 +15,8 @@ export default {
       totalAntimatterOutsideDoom: new Decimal(0),
       bestDoomedAntimatterThisDivinity: new Decimal(0),
       totalCelMatter: new Decimal(0),
+      totalDivineMatter: new Decimal(0),
+      hasSeenDivineDims: false,
       realTimePlayed: TimeSpan.zero,
       timeSinceCreation: 0,
       uniqueNews: 0,
@@ -162,6 +164,8 @@ export default {
       this.totalAntimatterOutsideDoom.copyFrom(player.records.totalAntimatterOutsideDoom);
       this.bestDoomedAntimatterThisDivinity.copyFrom(player.records.bestDoomedAntimatterThisDivinity);
       this.totalCelMatter.copyFrom(records.totalCelMatter);
+      this.totalDivineMatter.copyFrom(records.totalDivineMatter);
+      this.hasSeenDivineDims = DivinityMilestone.divineDimensions.isReached;
       this.realTimePlayed.setFrom(new Decimal(records.realTimePlayed));
       this.fullTimePlayed = TimeSpan.fromMilliseconds(
         new Decimal(records.previousRunRealTime + records.realTimePlayed));
@@ -345,6 +349,9 @@ export default {
         <div v-if="celestialInfinity.isUnlocked" class="c-stats-tab-celestials">
           You have made a total of {{ format(celestialInfinity.totalCelestialInfinityCelMatter, 2, 1) }} Celestial Matter
           this Celestial Infinity.
+        </div>
+        <div v-if="hasSeenDivineDimensions" class="c-stats-tab-divinity">
+          You have made a total of {{ format(totalDivineMatter, 2, 1) }} Divine Matter.
         </div>
         <div>You have played for {{ realTimePlayed }}. (real time)</div>
         <div v-if="reality.isUnlocked">
