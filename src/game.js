@@ -462,6 +462,13 @@ export function gainedCelestialEternityPoints() {
   return cep.floor();
 }
 
+export function gainedDivineStars() {
+  const div = 308;
+  let divs = Decimal.pow10(player.records.thisStarRun.maxVM.add(1).log10().div(div).sub(0.75));
+
+  return divs.floor();
+}
+
 export function updateRefresh() {
   GameStorage.save();
   location.reload(true);
