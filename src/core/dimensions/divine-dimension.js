@@ -227,6 +227,7 @@ export const DivineDimensions = {
 export function resetForDivineStars() {
   if (Currency.divineMatter.lt(DC.NUMMAX)) return;
   player.celestials.pelle.divinity.divineStars = player.celestials.pelle.divinity.divineStars.add(gainedDivineStars());
+  player.celestials.pelle.divinity.condenses = player.celestials.pelle.divinity.condenses.add(1);
   Endgame.resetNoReward();
   DivineDimensions.fullReset();
   Currency.divineMatter.reset();
