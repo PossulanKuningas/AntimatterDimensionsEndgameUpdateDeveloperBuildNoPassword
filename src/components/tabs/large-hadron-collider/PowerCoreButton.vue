@@ -9,8 +9,8 @@ export default {
   data() {
     return {
       isAffordable: false,
-      multiplier: new Decimal(),
-      cost: new Decimal()
+      multiplier: 0,
+      cost: 0
     };
   },
   computed: {
@@ -28,8 +28,8 @@ export default {
   methods: {
     update() {
       const upgrade = this.upgrade;
-      this.multiplier.copyFrom(upgrade.effectValue);
-      this.cost.copyFrom(upgrade.cost);
+      this.multiplier = upgrade.effectValue;
+      this.cost = upgrade.cost;
       this.isAffordable = upgrade.isAffordable;
     },
     purchaseUpgrade() {
