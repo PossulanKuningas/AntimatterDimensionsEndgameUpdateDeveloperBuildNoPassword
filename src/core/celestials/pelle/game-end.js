@@ -30,16 +30,16 @@ export const END_STATE_MARKERS = {
   },
   get SHOW_NEW_GAME() {
     if (player.endgames >= 1) return 1e308;
-    return 5;
+    return 15.5;
   },
   get SPECTATE_GAME() {
     if (player.endgames >= 1) return 1e308;
-    return 5;
+    return 15.9;
   },
   // The song is 4:27 and the credits increment by 1 every 20 seconds. Needs changing if the song is changed.
   get SONG_END() {
     if (player.endgames >= 1) return 1e308;
-    return 10;
+    return 17.9;
   },
   get CREDITS_END() {
     if (player.endgames >= 1) return 1e308;
