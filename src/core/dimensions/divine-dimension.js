@@ -5,6 +5,7 @@ export function divineDimensionCommonMultiplier() {
   mult = mult.timesEffectsOf(DivinityUpgrade.divineL1U3, DivinityUpgrade.divineL1U6);
   mult = mult.times(DivinityMilestone.hadronEmpowerment.isReached ? 77 : 1);
   mult = mult.times(Accelerators.potency.effectValue3);
+  mult = mult.times(Decimal.pow(7, Decimal.log10(player.celestials.pelle.divinity.divineStars.add(1))));
   return mult;
 }
 
@@ -150,13 +151,13 @@ export const DivineDimensions = {
   all: DivineDimension.index.compact(),
 
   get HARDCAP() {
-    return DC.NUMMAX.times(Decimal.pow(1.1, 0));
+    return DC.NUMMAX.pow(Decimal.log10(player.celestials.pelle.divinity.divineStars.add(1)).add(1));
   },
 
   get energyPerSecond() {
     const divineEnergyMults = DC.D1.timesEffectOf(DivinityUpgrade.divineL1U7).times(
       DivinityMilestone.hadronEmpowerment.isReached ? 77 : 1).times(Accelerators.potency.effectValue3);
-    return Decimal.pow(100, Decimal.log10(DivineDimension(1).productionPerSecond).div(100).sub(1)).times(divineEnergyMults);
+    return Decimal.pow(100, Decimal.log10(DivineDimension(1).productionPerSecond.max(1)).div(100).sub(1)).times(divineEnergyMults);
   },
 
   resetAmount() {
@@ -221,4 +222,21 @@ export const DivineDimensions = {
     let logD = Decimal.log10(Decimal.log10(Currency.divineMatter.value.max(10)));
     return DC.D1.sub(Decimal.pow(0.8, logD)).toNumber();
   }
+};
+
+export function resetForDivineStars() {
+  if (Currency.divineMatter.lt(DC.NUMMAX)) return;
+  Endgame.resetNoReward();
+  DivineDimensions.fullReset();
+  Currency.divineMatter.reset();
+  player.records.totalCondenseDivineMatter = DC.E1;
+  if (true) {
+    let upgR = [];
+    for (let upgL = 0; upgL < DivinityUpgrades.all.filter(u => u.layer !== 1).length; upgL++) {
+      upgR.push(DivinityUpgrades.all.filter(u => u.layer !== 1)[upgL].id)
+    }
+    upgR.push("divineL1U5");
+    player.celestials.pelle.divineUpgrades = new Set(upgR);
+  }
+  player.celestials.pelle.divinity.divineStars = player.celestials.pelle.divinity.divineStars.add(gainedDivineStars());
 };
