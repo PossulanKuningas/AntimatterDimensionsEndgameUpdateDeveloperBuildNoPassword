@@ -760,6 +760,14 @@ Currency.nullMatter = new class extends DecimalCurrency {
   }
 }();
 
+Currency.condenses = new class extends DecimalCurrency {
+  get value() { return player.celestials.pelle.divinity.condenses; }
+  set value(value) {
+    const newValue = new Decimal(value);
+    player.celestials.pelle.divinity.condenses = newValue;
+  }
+}();
+
 Currency.divineStars = new class extends DecimalCurrency {
   get value() { return player.celestials.pelle.divinity.divineStars; }
   set value(value) {
