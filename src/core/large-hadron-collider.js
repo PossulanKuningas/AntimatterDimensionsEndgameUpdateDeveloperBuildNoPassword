@@ -53,7 +53,8 @@ class AcceleratorState extends GameMechanicState {
   }
 
   get isUnlocked() {
-    return this.fillCurrency.value.gte(this.config.unlockReq()) || this.percentage > 0;
+    return (this.fillCurrency.value.gte(this.config.unlockReq()) || this.percentage > 0) &&
+      (Accelerators.all[this.config.id - 2] ? Accelerators.all[this.config.id - 2].isUnlocked : true);
   }
 
   get name() {
