@@ -10380,7 +10380,7 @@ kbd {
 }
 
 .c-void-run-button {
-  font-size: 10rem;
+  font-size: 1rem;
   font-weight: bold;
   transition-duration: 0.2s;
   -webkit-user-select: none;
@@ -10412,11 +10412,6 @@ kbd {
   50% { background-color: #400040; }
   75% { background-color: black; }
   100% { background-color: #000040; }
-}
-
-.c-void-run-button__inner--running,
-.c-void-run-button__inner--not-running {
-  margin-top: -3rem;
 }
 
 .c-performance-stats {
