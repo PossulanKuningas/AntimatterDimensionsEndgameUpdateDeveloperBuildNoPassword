@@ -112,32 +112,32 @@ export default {
     boostText() {
       const boostList = [];
       boostList.push(`a <span class="c-replicanti-description__accent">${formatX(this.mult, 2, 2)}</span>
-        multiplier<span v-if="hasPow"> and a
-        <span class="c-replicanti-description__accent">${formatPow(this.pow, 2, 3)}</span> power</span>
+        multiplier${this.hasPow ? ` and a
+        <span class="c-replicanti-description__accent">${formatPow(this.pow, 2, 3)}</span> power` : ""}
         on all Infinity Dimensions`);
       if (this.hasTDMult) {
         boostList.push(`a <span class="c-replicanti-description__accent">${formatX(this.multTD, 2, 2)}</span>
-          multiplier<span v-if="hasTDPow"> and a
-          <span class="c-replicanti-description__accent">${formatPow(this.powTD, 2, 3)}</span> power</span>
+          multiplier${this.hasTDPow ? ` and a
+          <span class="c-replicanti-description__accent">${formatPow(this.powTD, 2, 3)}</span> power` : ""}
           on all Time Dimensions from a Dilation Upgrade`);
       }
       if (this.hasDTMult) {
         const additionalEffect = GlyphAlteration.isAdded("replication") ? "and Replicanti speed " : "";
         boostList.push(`a <span class="c-replicanti-description__accent">${formatX(this.multDT, 2, 2)}</span>
-          multiplier<span v-if="hasDTPow"> and a
-          <span class="c-replicanti-description__accent">${formatPow(this.powDT, 2, 3)}</span> power</span>
+          multiplier${this.hasDTPow ? ` and a
+          <span class="c-replicanti-description__accent">${formatPow(this.powDT, 2, 3)}</span> power` : ""}
           to Dilated Time ${additionalEffect}from Glyphs`);
       }
       if (this.hasIPMult) {
         boostList.push(`a <span class="c-replicanti-description__accent">${formatX(this.multIP)}</span>
-          multiplier<span v-if="hasIPPow"> and a
-          <span class="c-replicanti-description__accent">${formatPow(this.powIP, 2, 3)}</span> power</span>
+          multiplier${this.hasIPPow ? ` and a
+          <span class="c-replicanti-description__accent">${formatPow(this.powIP, 2, 3)}</span> power` : ""}
           to Infinity Points from Glyph Alchemy`);
       }
       if (this.hasDEMult) {
         boostList.push(`a <span class="c-replicanti-description__accent">${formatX(this.multDE)}</span>
-          multiplier<span v-if="hasDEPow"> and a
-          <span class="c-replicanti-description__accent">${formatPow(this.powDE, 2, 3)}</span> power</span>
+          multiplier${this.hasDEPow ? ` and a
+          <span class="c-replicanti-description__accent">${formatPow(this.powDE, 2, 3)}</span> power` : ""}
           to Dark Energy from an Alpha Reward`);
       }
       if (boostList.length === 1) return `${boostList[0]}.`;
