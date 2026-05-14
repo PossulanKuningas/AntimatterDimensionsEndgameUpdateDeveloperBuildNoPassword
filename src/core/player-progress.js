@@ -36,7 +36,7 @@ export class PlayerProgress {
     return this._player.celestials.pelle.divinities > 0;
   }
 
-  get areDivineStarsUnlocked() {
+  get isCondenseUnlocked() {
     return new Decimal(this._player.celestials.pelle.divinity.condenses).gt(0);
   }
 
@@ -92,7 +92,7 @@ export class PlayerProgress {
     return PlayerProgress.current.isCelestialEternityUnlocked;
   }
 
-  static divineStarsUnlocked() {
+  static condenseUnlocked() {
     return PlayerProgress.current.areDivineStarsUnlocked;
   }
 
