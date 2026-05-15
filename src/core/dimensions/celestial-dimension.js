@@ -865,7 +865,7 @@ class CelestialInfinityUpgradeState extends SetPurchasableMechanicState {
   }
 
   get isEffectActive() {
-    return !player.disablePostReality;
+    return !player.disablePostReality && this.isBought;
   }
 }
 
@@ -960,7 +960,7 @@ export class CelestialBreakInfinityUpgradeState extends SetPurchasableMechanicSt
   }
 
   get isEffectActive() {
-    return !player.disablePostReality;
+    return !player.disablePostReality && this.isBought;
   }
 }
 
@@ -983,10 +983,6 @@ class RebuyableCelestialBreakInfinityUpgradeState extends RebuyableMechanicState
 
   onPurchased() {
     this.config.onPurchased?.();
-  }
-
-  get isEffectActive() {
-    return !player.disablePostReality;
   }
 }
 
@@ -1100,7 +1096,7 @@ class CelestialEternityUpgradeState extends SetPurchasableMechanicState {
   }
 
   get isEffectActive() {
-    return !player.disablePostReality;
+    return !player.disablePostReality && this.isBought;
   }
 }
 
@@ -1123,10 +1119,6 @@ class RebuyableCelestialEternityUpgradeState extends RebuyableMechanicState {
 
   onPurchased() {
     this.config.onPurchased?.();
-  }
-
-  get isEffectActive() {
-    return !player.disablePostReality;
   }
 }
 
