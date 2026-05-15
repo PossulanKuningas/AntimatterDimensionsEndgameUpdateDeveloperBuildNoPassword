@@ -80,6 +80,8 @@ export default {
         and has restricted it from exceeding {{ format(amHardcap, 2, 2) }}.
       </div>
     </div>
+    <br>
+    <br>
     <div v-if="highestAntimatter.gt(10)">
       <span class="c-void-antimatter-amount">[Your highest Antimatter inside The Void is {{ format(highestAntimatter, 2, 1) }}.]</span>
       <br>
