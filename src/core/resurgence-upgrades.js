@@ -18,7 +18,7 @@ export class ResurgenceUpgradeState extends SetPurchasableMechanicState {
   }
 
   get isEffectActive() {
-    return !player.disablePostReality;
+    return !player.disablePostReality && this.isBought;
   }
 }
 
