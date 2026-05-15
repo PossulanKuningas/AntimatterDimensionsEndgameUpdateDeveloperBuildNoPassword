@@ -649,10 +649,10 @@ class AntimatterDimensionState extends DimensionState {
         const log10 = production.log10().log10();
         production = Decimal.pow10(Decimal.pow10(Decimal.pow(log10, DivinityUpgrade.divineL1U4.effectOrDefault(1) * Accelerators.cosmic.effectValue3)));
       }
-      if (ResurgenceUpgrade.ipSurge.isBought) {
+      if (ResurgenceUpgrade.ipSurge.isBought && !player.disablePostReality) {
         production = production.times(gainedInfinityPoints());
       }
-      if (ResurgenceUpgrade.epSurge.isBought) {
+      if (ResurgenceUpgrade.epSurge.isBought && !player.disablePostReality) {
         production = production.times(gainedEternityPoints());
       }
       if (production.gt(Decimal.pow10(1e200)) && !Pelle.isDoomed) {
@@ -732,7 +732,17 @@ export const AntimatterDimensions = {
     if (AntimatterDimension(8).amount.gt(0) || AntimatterDimension(8).continuumAmount.gt(0)) {
       player.requirementChecks.endgame.onlyLowDims = false;
     }
-    AntimatterDimension(1).produceCurrency(Currency.antimatter, diff);
+    if (!player.endgame.largeHadronCollider.void.isRunning) {
+      AntimatterDimension(1).produceCurrency(Currency.antimatter, diff);
+    }
+    if (player.endgame.largeHadronCollider.void.isRunning) {
+      let pendAmount = AntimatterDimension(1).productionPerSecond;
+      let amountLost = Decimal.pow(pendAmount, 0.01);
+      let amountGained = pendAmount.div(amountLost);
+      Currency.antimatter.add(amountGained.times(diff).div(1000));
+      let conversionToNull = Decimal.log10(amountLost.max(1)).pow(Decimal.log10(Decimal.log10(amountLost.max(1)).max(1)));
+      Currency.nullMatter.add(conversionToNull.times(diff).div(1000));
+    }
     if (NormalChallenge(12).isRunning) {
       AntimatterDimension(2).produceCurrency(Currency.antimatter, diff);
     }

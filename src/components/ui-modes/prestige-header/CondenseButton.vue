@@ -70,7 +70,7 @@ export default {
   },
   methods: {
     update() {
-      this.isVisible = PlayerProgress.divineStarsUnlocked() || Currency.divineMatter.gte(DC.NUMMAX);
+      this.isVisible = PlayerProgress.condenseUnlocked() || Currency.divineMatter.gte(DC.NUMMAX);
       if (!this.isVisible) return;
       this.canCondense = Currency.divineMatter.gte(DC.NUMMAX);
       this.condenseGoal.copyFrom(DC.NUMMAX);

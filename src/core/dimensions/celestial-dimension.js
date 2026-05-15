@@ -863,6 +863,10 @@ class CelestialInfinityUpgradeState extends SetPurchasableMechanicState {
   get set() {
     return player.endgame.celDimExpansion.celestialInfinityUpgrades;
   }
+
+  get isEffectActive() {
+    return !player.disablePostReality && this.isBought;
+  }
 }
 
 class CIPMultiplierState extends GameMechanicState {
@@ -954,6 +958,10 @@ export class CelestialBreakInfinityUpgradeState extends SetPurchasableMechanicSt
   get set() {
     return player.endgame.celDimExpansion.celestialInfinityUpgrades;
   }
+
+  get isEffectActive() {
+    return !player.disablePostReality && this.isBought;
+  }
 }
 
 class RebuyableCelestialBreakInfinityUpgradeState extends RebuyableMechanicState {
@@ -999,6 +1007,11 @@ function giveCelestialEternityRewards(auto) {
     gainedCelestialEternityPoints(),
     newCelestialEternities
   );
+
+  player.records.bestCelestialEternity.time =
+    Decimal.min(player.records.bestCelestialEternity.time, player.records.thisCelestialEternity.time);
+  player.records.bestCelestialEternity.realTime =
+    Math.min(player.records.bestCelestialEternity.realTime, player.records.thisCelestialEternity.realTime);
 
   player.records.thisCelestialReality.bestCelestialEternitiesPerMs = player.records.thisCelestialReality.bestCelestialEternitiesPerMs.clampMin(
     newCelestialEternities.div(Math.clampMin(33, player.records.thisCelestialEternity.realTime))
@@ -1080,6 +1093,10 @@ class CelestialEternityUpgradeState extends SetPurchasableMechanicState {
 
   get set() {
     return player.endgame.celDimExpansion.celestialEternityUpgrades;
+  }
+
+  get isEffectActive() {
+    return !player.disablePostReality && this.isBought;
   }
 }
 

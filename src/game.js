@@ -204,7 +204,7 @@ export function gainedInfinityPoints() {
     ));
   }
 
-  if (!player.disablePostReality && AlchemyResource.exponential.amount > 0 && ResurgenceUpgrade.repSurge.isBought) {
+  if (!player.disablePostReality && AlchemyResource.exponential.amount > 0 && ResurgenceUpgrade.repSurge.isBought && !player.disablePostReality) {
     ip = ip.pow(ReplicantiMultipliers.ipPow);
   }
 
@@ -806,8 +806,8 @@ export function gameLoop(passedDiff, options = {}) {
   updateImaginaryMachines(realDiff);
   updateDualMachines(realDiff);
 
-  if (ResurgenceUpgrade.ipSurge.isBought) player.infinityPoints = player.antimatter;
-  if (ResurgenceUpgrade.epSurge.isBought) player.eternityPoints = player.antimatter;
+  if (ResurgenceUpgrade.ipSurge.isBought && !player.disablePostReality) player.infinityPoints = player.antimatter;
+  if (ResurgenceUpgrade.epSurge.isBought && !player.disablePostReality) player.eternityPoints = player.antimatter;
 
   if (ExpansionPack.teresaPack.isBought && player.celestials.teresa.autoPour && !player.disablePostReality) {
     Teresa.pourRM(realDiff, true);
@@ -1139,7 +1139,7 @@ function updatePrestigeRates() {
 function globalPassivePrestigeGen(realDiff) {
   let realitiedGain = DC.D0;
   let realityMult = DC.D1;
-  if (ResurgenceUpgrade.realSurge.isBought) {
+  if (ResurgenceUpgrade.realSurge.isBought && !player.disablePostReality) {
     realitiedGain = Time.deltaTime.times(realityMult);
     player.endgame.partRealitied = player.endgame.partRealitied.add(realitiedGain);
     Currency.realities.add(player.endgame.partRealitied.floor());

@@ -231,6 +231,9 @@ Currency.antimatter = new class extends DecimalCurrency {
     if (!Pelle.isDoomed) {
       player.records.totalAntimatterOutsideDoom = player.records.totalAntimatterOutsideDoom.max(value);
     }
+    if (player.endgame.largeHadronCollider.void.isRunning) {
+      player.endgame.largeHadronCollider.void.highestAntimatter = player.endgame.largeHadronCollider.void.highestAntimatter.max(value);
+    }
   }
 
   add(amount) {

@@ -24,7 +24,7 @@ class AcceleratorMilestoneState extends GameMechanicState {
   }
 
   get isEffectActive() {
-    return this.isUnlocked;
+    return this.isUnlocked && !player.disablePostReality;
   }
 
   get description() {
@@ -53,7 +53,8 @@ class AcceleratorState extends GameMechanicState {
   }
 
   get isUnlocked() {
-    return this.fillCurrency.value.gte(this.config.unlockReq()) || this.percentage > 0;
+    return (this.fillCurrency.value.gte(this.config.unlockReq()) || this.percentage > 0) &&
+      (Accelerators.all[this.config.id - 2] ? Accelerators.all[this.config.id - 2].isUnlocked : true);
   }
 
   get name() {
@@ -110,15 +111,15 @@ class AcceleratorState extends GameMechanicState {
   get isCustomEffect() { return true; }
 
   get effectValue1() {
-    return this.config.effects.alpha(this.percentage * 100);
+    return player.disablePostReality ? this.config.effects.alpha(0) : this.config.effects.alpha(this.percentage * 100);
   }
 
   get effectValue2() {
-    return this.config.effects.beta(this.percentage * 100);
+    return player.disablePostReality ? this.config.effects.beta(0) : this.config.effects.beta(this.percentage * 100);
   }
 
   get effectValue3() {
-    return this.config.effects.gamma(this.percentage * 100);
+    return player.disablePostReality ? this.config.effects.gamma(0) : this.config.effects.gamma(this.percentage * 100);
   }
 
   get maxValue() {
@@ -266,3 +267,21 @@ class PowerCoreState extends GameMechanicState {
 }
 
 LHC.powerCores = new PowerCoreState();
+
+export function enterTheVoid() {
+  player.disablePostReality = true;
+  Endgame.resetNoReward();
+  disChargeAllPerkUpgrades();
+  disChargeAll();
+  AutomatorBackend.stop();
+  clearCelestialRuns();
+  player.endgame.largeHadronCollider.void.isRunning = true;
+  recalculateAllGlyphs();
+  Tab.dimensions.antimatter.show(false);
+};
+
+export function exitTheVoid() {
+  player.disablePostReality = false;
+  Endgame.resetNoReward();
+  player.endgame.largeHadronCollider.void.isRunning = false;
+};

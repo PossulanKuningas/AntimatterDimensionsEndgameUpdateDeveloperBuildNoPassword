@@ -76,7 +76,7 @@ export const celestialBreakInfinityUpgrades = {
     initialCost: 1e6,
     costIncrease: 10,
     maxUpgrades: 10,
-    effect: value => Player.bestRunCIPPM.times(value / 20),
+    effect: value => player.disablePostReality ? DC.D0 : Player.bestRunCIPPM.times(value / 20),
     description: () => {
       let generation = `Generate ${formatInt(5 * player.endgame.celDimExpansion.celestialInfinityRebuyables[2])}%`;
       if (!CelestialBreakInfinityUpgrade.cipGen.isCapped) {
@@ -93,7 +93,7 @@ export const celestialBreakInfinityUpgrades = {
     initialCost: 1e9,
     costIncrease: 1e3,
     maxUpgrades: 10,
-    effect: value => Math.pow(1.2, value),
+    effect: value => player.disablePostReality ? 1 : Math.pow(1.2, value),
     description: () => `Increase the Celestial Dimension per-purchase multiplier by ${formatPercents(0.2)}`,
     formatEffect: value => `${formatX(value, 2, 2)}`,
     noLabel: false
@@ -103,7 +103,7 @@ export const celestialBreakInfinityUpgrades = {
     initialCost: 1e12,
     costIncrease: 1e6,
     maxUpgrades: 10,
-    effect: value => Math.pow(1.5, value),
+    effect: value => player.disablePostReality ? 1 : Math.pow(1.5, value),
     description: () => `Increase the Celestial Dimension Boost multiplier by ${formatPercents(0.5)}`,
     formatEffect: value => `${formatX(value, 2, 2)}`,
     noLabel: false
@@ -113,7 +113,7 @@ export const celestialBreakInfinityUpgrades = {
     initialCost: 1e15,
     costIncrease: 1e9,
     maxUpgrades: 10,
-    effect: value => Math.pow(1.1, value),
+    effect: value => player.disablePostReality ? 1 : Math.pow(1.1, value),
     description: () => `Increase the Celestial Galaxy to Celestial Tickspeed multiplier by ${formatPercents(0.1)}`,
     formatEffect: value => `${formatX(value, 2, 2)}`,
     noLabel: false

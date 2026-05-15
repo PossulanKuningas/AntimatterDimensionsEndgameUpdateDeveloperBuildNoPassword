@@ -234,7 +234,11 @@ export const DivineDimensions = {
 };
 
 function giveCondenseRewards(auto) {
-  player.records.bestCondense.time = Decimal.min(player.records.thisCondense.time, player.records.bestCondense.time);
+  player.records.bestCondense.time =
+    Decimal.min(player.records.bestCondense.time, player.records.thisCondense.time);
+  player.records.bestCondense.realTime =
+    Math.min(player.records.bestCondense.realTime, player.records.thisCondense.realTime);
+
   Currency.divineStars.add(gainedDivineStars());
 
   const newCondenses = gainedCondenses();

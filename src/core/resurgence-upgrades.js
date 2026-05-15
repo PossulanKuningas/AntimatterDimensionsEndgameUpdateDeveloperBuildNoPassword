@@ -16,6 +16,10 @@ export class ResurgenceUpgradeState extends SetPurchasableMechanicState {
   onPurchased() {
     this.config.onPurchased?.();
   }
+
+  get isEffectActive() {
+    return !player.disablePostReality && this.isBought;
+  }
 }
 
 export const ResurgenceUpgrade = mapGameDataToObject(
