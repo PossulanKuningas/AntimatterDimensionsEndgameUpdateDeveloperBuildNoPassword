@@ -1524,6 +1524,7 @@ window.player = {
       endgameUpgrades: true,
       divinityUpgrades: true,
       resurgenceUpgrades: true,
+      nullUpgrades: true,
     },
     animations: {
       bigCrunch: true,
