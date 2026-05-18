@@ -49,6 +49,8 @@ export function antimatterDimensionCommonMultiplier() {
   if (Pelle.isDoomed && !PelleDestructionUpgrade.disableADNerf.canBeApplied) multiplier = multiplier.dividedBy(Currency.antimatter.value.add(1).log10().times(50).max(1));
   if (Alpha.isRunning) multiplier = multiplier.div(Currency.antimatter.value.add(1).log10().times(125).max(1));
 
+  if (LHC.voidRunning) multiplier = multiplier.timesEffectOf(NullUpgrade.antimatterDimensionMult);
+
   return multiplier;
 }
 
