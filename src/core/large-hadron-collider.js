@@ -282,6 +282,30 @@ export function enterTheVoid() {
   player.endgame.largeHadronCollider.void.isRunning = true;
   recalculateAllGlyphs();
   Tab.dimensions.antimatter.show(false);
+  if (NullUpgrade.ncComp.isBought) NormalChallenges.completeAll();
+  if (NullUpgrade.alwaysBroken.isBought) player.break = true;
+  if (NullUpgrade.icComp.isBought) InfinityChallenges.completeAll();
+  if (NullUpgrade.repUnl.isBought) Replicanti.unlock(true);
+  if (NullUpgrade.eterMiles.isBought) Currency.eternities.bumpTo(100);
+  if (NullUpgrade.limerick3.isBought) {
+    player.eternityChalls = {
+      eterc1: 5,
+      eterc2: 5,
+      eterc3: 5,
+      eterc4: 5,
+      eterc5: 5,
+      eterc6: 5,
+      eterc7: 5,
+      eterc8: 5,
+      eterc9: 5,
+      eterc10: 5,
+      eterc11: 5,
+      eterc12: 5
+    };
+  }
+  if (NullUpgrade.limerick4.isBought) {
+    if (!player.dilation.studies.includes(1)) player.dilation.studies.push(1);
+  }
 };
 
 export function exitTheVoid() {
