@@ -118,7 +118,7 @@ export const resurgenceUpgrades = {
     id: "synergy3",
     cost: new Decimal("1e2550"),
     description: "Space Theorems are multiplied based on the product of your Stars",
-    effect: () => Decimal.log10(Ethereal.stellarProduct).max(1),
+    effect: () => Decimal.log10(Ethereal.stellarProduct).max(1).toNumber(),
     formatEffect: value => formatX(value, 2, 2)
   },
   synergy4: {
@@ -164,7 +164,7 @@ export const resurgenceUpgrades = {
     description: "Unlock more Galactic Powers"
   },
   unl4: {
-    name: "Ressurect",
+    name: "Resurrect",
     id: "unl4",
     cost: new Decimal("1e20000"),
     description: "Unlock Ascension"

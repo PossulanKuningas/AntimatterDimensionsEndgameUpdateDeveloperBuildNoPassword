@@ -121,7 +121,7 @@ export const divinityUpgrades = {
     id: "divineL2U2",
     layer: 2,
     cost: new Decimal(7),
-    description: "Divine Stars mutliply Divine Energy production",
+    description: "Divine Stars multiply Divine Energy production",
     effect: () => player.celestials.pelle.divinity.divineStars.max(1),
     formatEffect: value => formatX(value, 2)
   },
@@ -315,7 +315,7 @@ export const divinityUpgrades = {
     layer: 5,
     cost: new Decimal(7e5),
     description: "Gain an additional power to Divine Dimensions based on current Nebulae",
-    effect: () => Decimal.log10(player.celestials.pelle.divinity.nebulae.add(1)).div(10).add(1),
+    effect: () => Decimal.log10(Decimal.log10(player.celestials.pelle.divinity.nebulae.add(10))).add(1),
     formatEffect: value => formatPow(value, 2, 3)
   },
   divineL5U4: {

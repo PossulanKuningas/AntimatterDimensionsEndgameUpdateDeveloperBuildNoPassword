@@ -165,6 +165,7 @@ export const Endgame = {
       if (!EffarigUnlock.endgame.isUnlocked) {
         EffarigUnlock.endgame.unlock();
       }
+      Effarig.quotes.beatEndgame.show();
     }
     this.resetStuff();
 
@@ -217,6 +218,7 @@ export const Endgame = {
     let rowProtect = 0;
     rowProtect = player.reality.glyphs.protectedRows;
     let isAutoWeighed = player.celestials.effarig.autoAdjustGlyphWeights;
+    Enslaved.autoReleaseSpeed = DC.D0;
     player.isGameEnd = false;
     Tab.dimensions.antimatter.show();
     AchievementTimers.marathon2.reset();
@@ -249,8 +251,8 @@ export const Endgame = {
     player.reality.glyphs.undo = [];
     player.reality.glyphs.protectedRows = 0;
     Glyphs.deleteAllUnprotected();
-    player.reality.glyphs.protectedRows = rowProtect;
-    Glyphs.unequipAll();
+    player.reality.glyphs.protectedRows = 2;
+    Glyphs.unequipAll(true);
     player.reality.glyphs.protectedRows = 0;
     Glyphs.deleteAllUnprotected();
     player.reality.glyphs.protectedRows = rowProtect;
@@ -802,4 +804,5 @@ export function divinityReset() {
     player.celestials.laitela.hadrons.dark = player.celestials.laitela.hadrons.total;
   }
   player.records.bestDoomedAntimatterThisDivinity = DC.E1;
+  if (player.celestials.pelle.divinities === 1) Pelle.quotes.divinity.show();
 }

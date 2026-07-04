@@ -6,7 +6,7 @@ export function divineDimensionCommonMultiplier() {
     DivinityUpgrade.divineL2U9);
   mult = mult.times(DivinityMilestone.hadronEmpowerment.isReached ? 77 : 1);
   mult = mult.times(Accelerators.potency.effectValue3);
-  mult = mult.times(Decimal.pow(7, Decimal.log10(player.celestials.pelle.divinity.divineStars.add(1))).powEffectOf(
+  mult = mult.times(Decimal.pow(7, Decimal.log10(player.celestials.pelle.divinity.divineStars.add(1).min(DC.NUMMAX))).powEffectOf(
     DivinityUpgrade.divineL3U3));
   return mult;
 }
@@ -275,7 +275,7 @@ function giveCondenseRewards(auto) {
 }
 
 export function resetForDivineStars(nova = false) {
-  if (Currency.divineMatter.lt(DC.NUMMAX)) return;
+  if (Currency.divineMatter.lt(DC.NUMMAX) && !nova) return;
   if (!nova) giveCondenseRewards();
   Endgame.resetNoReward();
   if (!DivinityUpgrade.divineL2U5.isBought || nova) {
@@ -296,7 +296,7 @@ export function resetForDivineStars(nova = false) {
       upgR.push("divineL2U5");
     }
     player.celestials.pelle.divinityUpgrades = new Set(upgR);
-    if (!DivinityUpgrade.divineL5U2.isBought) player.celestials.pelle.divinityRebuyables = [0, 0, 0, 0];
+    if (!DivinityUpgrade.divineL5U2.isBought && nova) player.celestials.pelle.divinityRebuyables = [0, 0, 0, 0];
   }
   DivineDimensions.fullReset();
   player.records.thisCondense.maxVM = DC.E1;

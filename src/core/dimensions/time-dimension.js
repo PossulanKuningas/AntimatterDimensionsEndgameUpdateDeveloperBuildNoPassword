@@ -20,6 +20,11 @@ export function buySingleTimeDimension(tier, auto = false) {
     }
     return false;
   }
+  if (DualityUpgrade(15).isLockingMechanics) {
+    const lockString = "purchase a Time Dimension";
+    DualityUpgrade(15).tryShowWarningModal(lockString);
+    return false;
+  }
 
   Currency.eternityPoints.subtract(dim.cost);
   dim.amount = dim.amount.plus(1);
@@ -64,34 +69,35 @@ export function calcHighestPurchaseableTD(tier, currency) {
   let logMult = Math.log10(TimeDimension(tier)._costMultiplier);
 
   if (tier > 4 && currency.lt(DC.E6000)) {
-    return Decimal.ceil(Decimal.max(0, (logC.sub(logBase)).div(logMult)));
+    return Decimal.floor(Decimal.max(0, (logC.sub(logBase)).div(logMult).add(1)));
   }
 
   if (currency.gte(DC.E6000)) {
     logMult = Math.log10(Math.max(TimeDimension(tier)._costMultiplier * (tier <= 4 ? 2.2 : 1), 1));
-    const preInc = (Decimal.log10(DC.E6000).sub(logBase)).div(logMult);
-    const postInc = Decimal.clampMin(((logC.sub(6000)).div(logMult)).div(TimeDimensions.scalingPast1e6000), 0);
-    return Decimal.ceil(postInc.add(preInc));
+    const preInc = Decimal.floor(Decimal.log10(DC.E6000).sub(logBase).div(logMult)).add(1);
+    const postInc = Decimal.floor(Decimal.clampMin(((logC.sub(TimeDimension(tier).nextCost(preInc).log10())).div(logMult)).div(
+      TimeDimensions.scalingPast1e6000), -1)).add(1);
+    return Decimal.floor(postInc.add(preInc));
   }
 
   if (currency.lt(DC.NUMMAX)) {
-    return Decimal.ceil(Decimal.max(0, ((logC.sub(logBase)).div(logMult)).add(1)));
+    return Decimal.floor(Decimal.max(0, (logC.sub(logBase)).div(logMult).add(1)));
   }
 
   if (currency.lt(DC.E1300)) {
-    const preInc = Decimal.floor((Decimal.log10(DC.NUMMAX).sub(logBase)).div(logMult));
+    const preInc = Decimal.floor((Decimal.log10(DC.NUMMAX).sub(logBase)).div(logMult)).add(1);
     logMult = Math.log10(Math.max(TimeDimension(tier)._costMultiplier * 1.5, 1));
     const decCur = logC.sub(preInc.times(logMult));
-    const postInc = Decimal.ceil(Decimal.clampMin(decCur.div(logMult), 0));
+    const postInc = Decimal.floor(Decimal.clampMin(decCur.div(logMult), -1)).add(1);
     return preInc.add(postInc);
   }
 
   if (currency.lt(DC.E6000)) {
     logMult = Math.log10(Math.max(TimeDimension(tier)._costMultiplier * 1.5, 1));
-    const preInc = Decimal.floor((Decimal.log10(DC.E1300).sub(logBase)).div(logMult));
+    const preInc = Decimal.floor((Decimal.log10(DC.E1300).sub(logBase)).div(logMult)).add(1);
     logMult = Math.log10(Math.max(TimeDimension(tier)._costMultiplier * 2.2, 1));
     const decCur = logC.sub(preInc.times(logMult));
-    const postInc = Decimal.ceil(Decimal.clampMin(decCur.div(logMult), 0));
+    const postInc = Decimal.floor(Decimal.clampMin(decCur.div(logMult), -1)).add(1);
     return preInc.add(postInc);
   }
   throw new Error("calcHighestPurchasableTD reached too far in code");
@@ -115,6 +121,11 @@ export function buyMaxTimeDimension(tier, portionToSpend = 1, isMaxAll = false) 
       ImaginaryUpgrade(15).tryShowWarningModal(`purchase a Time Dimension,
         which will produce Infinity Dimensions through EC7`);
     }
+    return false;
+  }
+  if (DualityUpgrade(15).isLockingMechanics) {
+    const lockString = "purchase a Time Dimension";
+    DualityUpgrade(15).tryShowWarningModal(lockString);
     return false;
   }
   if (Enslaved.isRunning) return buySingleTimeDimension(tier);
@@ -328,6 +339,8 @@ class TimeDimensionState extends DimensionState {
 
     if (mult.gte(TimeDimensions.OVERFLOW)) mult = Decimal.pow(10, Decimal.pow(mult.log10().div(Decimal.log10(TimeDimensions.OVERFLOW)), 1 / TimeDimensions.compressionMagnitude).times(Decimal.log10(TimeDimensions.OVERFLOW)));
 
+    if (mult.gte(TimeDimensions.OVERFLOW_SQUARED)) mult = Decimal.pow(10, Decimal.pow(mult.log10().div(Decimal.log10(TimeDimensions.OVERFLOW_SQUARED)), 1 / TimeDimensions.compressionMag2).times(Decimal.log10(TimeDimensions.OVERFLOW_SQUARED)));
+
     return mult;
   }
 
@@ -466,9 +479,19 @@ export const TimeDimensions = {
     return DC.E1E15.powEffectsOf(EndgameMastery(93));
   },
 
+  get OVERFLOW_SQUARED() {
+    return Pelle.isDoomed ?
+      Decimal.pow10(Decimal.pow(DC.NUMMAX, Decimal.pow(2, Math.max(player.celestials.pelle.divinities, 1)))) : DC.ENUMMAX;
+  },
+
   get compressionMagnitude() {
     let reduction = Effects.product(EndgameMastery(83), EndgameUpgrade(3));
     if (!player.disablePostReality) reduction *= AlphaUnlocks.ecCompletion1.effects.buff.effectOrDefault(1);
+    return Math.max(10 * reduction, 2) - Math.max((0.2 - reduction) * 5, 0);
+  },
+
+  get compressionMag2() {
+    let reduction = 1;
     return Math.max(10 * reduction, 2) - Math.max((0.2 - reduction) * 5, 0);
   },
 

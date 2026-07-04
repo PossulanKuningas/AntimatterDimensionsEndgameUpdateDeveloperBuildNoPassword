@@ -1119,7 +1119,7 @@ export const normalAchievements = [
       buying any Infinity Dimensions or the ${formatX(2)} Infinity Point multiplier.`;
     },
     checkRequirement: () =>
-      Array.dimensionTiers.map(InfinityDimension).every(dim => dim.baseAmount === 0) &&
+      Array.dimensionTiers.map(InfinityDimension).every(dim => dim.baseAmount.eq(0)) &&
       player.IPMultPurchases.eq(0) &&
       Currency.infinityPoints.value.add(1).log10().gte(200000),
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
@@ -1669,7 +1669,7 @@ export const normalAchievements = [
   },
   {
     id: 201,
-    name: "A New Beginning ^2",
+    name: "A Newer Beginning",
     description: "Begin generation of Galactic Power.",
     checkRequirement: () => GalacticPower.isUnlocked,
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
@@ -1851,7 +1851,7 @@ export const normalAchievements = [
   },
   {
     id: 223,
-    name: "Power! Unlimited power!",
+    name: "Power! Unlimited Power!",
     get description() { return `Have your Infinity Dimension purchase cap exceed ${format(DC.NUMMAX, 1, 0)}.` },
     checkRequirement: () => InfinityDimensions.totalDimCap.gt(DC.NUMMAX),
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
@@ -1874,7 +1874,7 @@ export const normalAchievements = [
   },
   {
     id: 225,
-    name: "299792458 m/s",
+    name: "299792458m/s",
     description: "Uncap Celestial Matter.",
     checkRequirement: () => player.endgame.celDimExpansion.isBroken,
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
